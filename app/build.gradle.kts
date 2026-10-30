@@ -1,3 +1,11 @@
+import java.util.Properties
+
+// 从 local.properties 读取正式签名配置（本地专用，不提交；缺失时回退 debug 签名）
+val signingProps = Properties().apply {
+    val f = rootProject.file("local.properties")
+    if (f.exists()) f.inputStream().use { load(it) }
+}
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -7,6 +15,18 @@ plugins {
 android {
     namespace = "com.screensub.app"
     compileSdk = 37
+
+    signingConfigs {
+        val storePath = signingProps.getProperty("SIGN_STORE_FILE")
+        if (!storePath.isNullOrBlank()) {
+            create("release") {
+                storeFile = file(storePath)
+                storePassword = signingProps.getProperty("SIGN_STORE_PASSWORD")
+                keyAlias = signingProps.getProperty("SIGN_KEY_ALIAS")
+                keyPassword = signingProps.getProperty("SIGN_KEY_PASSWORD")
+            }
+        }
+    }
 
     defaultConfig {
         applicationId = "com.screensub.app"
@@ -33,9 +53,8 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            // 1.0 自用：沿用 debug 签名，省去生成 keystore，
-            // 也避免 release/debug 签名不同导致覆盖安装失败。上架时再换正式 keystore。
-            signingConfig = signingConfigs.getByName("debug")
+            // 正式签名：从 local.properties 读 keystore；缺失时回退 debug（保证开源可编译）
+            signingConfig = signingConfigs.findByName("release") ?: signingConfigs.getByName("debug")
         }
     }
 
