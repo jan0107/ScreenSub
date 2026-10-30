@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  前台服务常驻通知的小图标。
+  和告警图标一样，必须是 24dp 视口 + 纯白单色。
+  原来用的是 android.R.drawable.ic_menu_view（系统菜单图标），
+  不在我们自己的资源里，ROM 处理方式不可控。
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- 字幕框 -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M3,4h18a2,2 0 0 1,2 2v12a2,2 0 0 1,-2 2H3a2,2 0 0 1,-2 -2V6a2,2 0 0 1,2 -2zM3,6v12h18V6H3z" />
+    <!-- 两行字幕 -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M6,9h12v2H6zM6,13h8v2H6z" />
+</vector>

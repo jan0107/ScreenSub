@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  通知栏专用小图标。
+  必须是纯白单色 + 24dp 视口的矢量图。
+  之前误用了 ic_launcher_foreground（108dp 自适应图标前景，带色块），
+  荣耀等 ROM 渲染不出有效小图标时，通知栏会退化成一个没有内容的空条目。
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M12,2L1,21h22L12,2zM13,18h-2v-2h2v2zM13,14h-2V9h2v5z" />
+</vector>
